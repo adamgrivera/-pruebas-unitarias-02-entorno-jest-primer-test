@@ -19,3 +19,21 @@ export function obtenerTareas(req: Request, res: Response) {
   // Es como decir: "aquí tienes la lista de tareas que pediste"
   res.json(tareas);
 }
+
+export function crearTarea(req: Request, res: Response) {
+  const { titulo, descripcion } = req.body;
+
+  if (!titulo || !descripcion) {
+    return res.status(400).json({ mensaje: "El título y la descripción son obligatorios" });
+  }
+
+  const nuevaTarea = {
+    id: tareas.length + 1,
+    titulo,
+    descripcion,
+    completada: false
+  };
+
+  tareas.push(nuevaTarea);
+  res.status(201).json(nuevaTarea);
+}
